@@ -828,8 +828,6 @@ services:
 
     # Redis Service
 
-  version: '3.8'
-
   services:
     frontend:
       build:
