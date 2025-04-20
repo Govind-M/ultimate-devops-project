@@ -12,6 +12,8 @@ networks:
   default:
     name: opentelemetry-demo
     driver: bridge
+  devnet:
+    driver: bridge
 
 services:
   # ******************
@@ -43,6 +45,8 @@ services:
       kafka:
         condition: service_healthy
     logging: *logging
+    networks:
+      -default
 
   # AdService
   ad:
@@ -79,6 +83,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Cart service
   cart:
@@ -113,6 +119,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Checkout service
   checkout:
@@ -165,6 +173,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Currency service
   currency:
@@ -193,6 +203,8 @@ services:
       otel-collector:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Email service
   email:
@@ -220,6 +232,8 @@ services:
       otel-collector:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Fraud Detection service
   fraud-detection:
@@ -253,6 +267,8 @@ services:
       kafka:
         condition: service_healthy
     logging: *logging
+    networks:
+      -default
 
   # Frontend
   frontend:
@@ -290,7 +306,9 @@ services:
       - OTEL_COLLECTOR_HOST
       - FLAGD_HOST
       - FLAGD_PORT
+      - REDIS_URL=redis://redis:6379
     depends_on:
+      - redis
       ad:
         condition: service_started
       cart:
@@ -314,6 +332,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      - devnet
 
   # Frontend Proxy (Envoy)
   frontend-proxy:
@@ -363,6 +383,8 @@ services:
       flagd-ui:
         condition: service_started
     dns_search: ""
+    networks:
+      -default
 
   # image-provider
   image-provider:
@@ -390,6 +412,8 @@ services:
       otel-collector:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Load Generator
   load-generator:
@@ -428,6 +452,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Payment service
   payment:
@@ -459,6 +485,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Product Catalog service
   product-catalog:
@@ -493,6 +521,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Quote service
   quote:
@@ -521,6 +551,8 @@ services:
       otel-collector:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Recommendation service
   recommendation:
@@ -557,6 +589,8 @@ services:
       flagd:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # Shipping service
   shipping:
@@ -584,6 +618,8 @@ services:
       otel-collector:
         condition: service_started
     logging: *logging
+    networks:
+      -default
 
   # ******************
   # Dependent Services
@@ -613,6 +649,8 @@ services:
       - ./src/flagd:/etc/flagd
     logging:
       *logging
+      networks:
+      -default
 
   # Flagd UI for configuring the feature flag service
   flagd-ui:
@@ -673,6 +711,8 @@ services:
       timeout: 10s
       retries: 10
     logging: *logging
+    networks:
+      -default
 
   # Valkey used by Cart service
   valkey-cart:
@@ -687,6 +727,8 @@ services:
     ports:
       - "${VALKEY_PORT}"
     logging: *logging
+    networks:
+      -default
 
 
   # ********************
@@ -713,6 +755,8 @@ services:
     environment:
       - METRICS_STORAGE_TYPE=prometheus
     logging: *logging
+    networks:
+      -default
 
   # Grafana
   grafana:
@@ -731,6 +775,8 @@ services:
     ports:
       - "${GRAFANA_PORT}"
     logging: *logging
+    networks:
+      -default
 
   # OpenTelemetry Collector
   otel-collector:
@@ -757,6 +803,8 @@ services:
       opensearch:
         condition: service_healthy
     logging: *logging
+    networks:
+      -default
     environment:
       - ENVOY_PORT
       - HOST_FILESYSTEM
@@ -788,6 +836,8 @@ services:
     ports:
       - "${PROMETHEUS_PORT}:${PROMETHEUS_PORT}"
     logging: *logging
+    networks:
+      -default
 
   # OpenSearch
   opensearch:
@@ -824,34 +874,9 @@ services:
       timeout: 30s
       retries: 10
     logging: *logging
+    networks:
+      -default
 
-
-    # Redis Service
-
-  services:
-    frontend:
-      build:
-        context: ./src/frontend
-      ports:
-        - "8080:3000"
-      environment:
-        - REDIS_URL=redis://redis:6379
-      depends_on:
-        - redis
-      networks:
-        - devnet
-
-    redis:
-      image: redis:7
-      container_name: redis
-      ports:
-        - "6379:6379"
-      networks:
-        - devnet
-
-  networks:
-      devnet:
-        driver: bridge
 
 
 
