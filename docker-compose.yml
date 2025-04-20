@@ -828,30 +828,30 @@ services:
 
     # Redis Service
 
-    version: '3.8'
+  version: '3.8'
 
-    services:
-      frontend:
-        build:
-          context: ./src/frontend
-        ports:
-          - "8080:3000"
-        environment:
-          - REDIS_URL=redis://redis:6379
-        depends_on:
-          - redis
-        networks:
-          - devnet
+  services:
+    frontend:
+      build:
+        context: ./src/frontend
+      ports:
+        - "8080:3000"
+      environment:
+        - REDIS_URL=redis://redis:6379
+      depends_on:
+        - redis
+      networks:
+        - devnet
 
-      redis:
-        image: redis:7
-        container_name: redis
-        ports:
-          - "6379:6379"
-        networks:
-          - devnet
+    redis:
+      image: redis:7
+      container_name: redis
+      ports:
+        - "6379:6379"
+      networks:
+        - devnet
 
-    networks:
+  networks:
       devnet:
         driver: bridge
 
