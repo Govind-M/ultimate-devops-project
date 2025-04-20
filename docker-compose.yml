@@ -46,7 +46,7 @@ services:
         condition: service_healthy
     logging: *logging
     networks:
-      -default
+      - default
 
   # AdService
   ad:
@@ -84,7 +84,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Cart service
   cart:
@@ -120,7 +120,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Checkout service
   checkout:
@@ -174,7 +174,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Currency service
   currency:
@@ -204,7 +204,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Email service
   email:
@@ -233,7 +233,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Fraud Detection service
   fraud-detection:
@@ -268,7 +268,7 @@ services:
         condition: service_healthy
     logging: *logging
     networks:
-      -default
+      - default
 
   # Frontend
   frontend:
@@ -383,7 +383,7 @@ services:
         condition: service_started
     dns_search: ""
     networks:
-      -default
+      - default
 
   # image-provider
   image-provider:
@@ -412,7 +412,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Load Generator
   load-generator:
@@ -452,7 +452,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Payment service
   payment:
@@ -485,7 +485,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Product Catalog service
   product-catalog:
@@ -521,7 +521,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Quote service
   quote:
@@ -551,7 +551,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Recommendation service
   recommendation:
@@ -589,7 +589,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # Shipping service
   shipping:
@@ -618,7 +618,7 @@ services:
         condition: service_started
     logging: *logging
     networks:
-      -default
+      - default
 
   # ******************
   # Dependent Services
@@ -649,7 +649,7 @@ services:
     logging:
       *logging
     networks:
-      -default
+      - default
 
   # Flagd UI for configuring the feature flag service
   flagd-ui:
@@ -678,7 +678,7 @@ services:
     volumes:
       - ./src/flagd:/app/data
     networks:
-      -default
+      - default
 
   # Kafka used by Checkout, Accounting, and Fraud Detection services
   kafka:
@@ -713,7 +713,7 @@ services:
       retries: 10
     logging: *logging
     networks:
-      -default
+      - default
 
   # Valkey used by Cart service
   valkey-cart:
@@ -729,7 +729,7 @@ services:
       - "${VALKEY_PORT}"
     logging: *logging
     networks:
-      -default
+      - default
 
 
   # ********************
@@ -757,7 +757,7 @@ services:
       - METRICS_STORAGE_TYPE=prometheus
     logging: *logging
     networks:
-      -default
+      - default
 
   # Grafana
   grafana:
@@ -777,7 +777,7 @@ services:
       - "${GRAFANA_PORT}"
     logging: *logging
     networks:
-      -default
+      - default
 
   # OpenTelemetry Collector
   otel-collector:
@@ -838,7 +838,7 @@ services:
       - "${PROMETHEUS_PORT}:${PROMETHEUS_PORT}"
     logging: *logging
     networks:
-      -default
+      - default
 
   # OpenSearch
   opensearch:
@@ -876,7 +876,7 @@ services:
       retries: 10
     logging: *logging
     networks:
-      -default
+      - default
 
 
 
