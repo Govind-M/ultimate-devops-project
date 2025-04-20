@@ -308,7 +308,7 @@ services:
       - FLAGD_PORT
       - REDIS_URL=redis://redis:6379
     depends_on:
-      - redis
+      redis:
       ad:
         condition: service_started
       cart:
