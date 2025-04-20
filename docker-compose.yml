@@ -648,7 +648,7 @@ services:
       - ./src/flagd:/etc/flagd
     logging:
       *logging
-      networks:
+    networks:
       -default
 
   # Flagd UI for configuring the feature flag service
@@ -677,6 +677,8 @@ services:
         condition: service_started
     volumes:
       - ./src/flagd:/app/data
+    networks:
+      -default
 
   # Kafka used by Checkout, Accounting, and Fraud Detection services
   kafka:
